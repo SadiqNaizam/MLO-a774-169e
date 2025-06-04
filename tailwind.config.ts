@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-	darkMode: ["class"],
+	darkMode: ["class"], // Kept darkMode configuration, but actual dark theme styles removed from CSS as PRD does not define them
 	content: [
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
@@ -52,22 +52,32 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+        /* Custom color for PRD sidebar background */
+        sidebar: {
+          DEFAULT: 'hsl(var(--app-sidebar-bg))',
+          /* For text on sidebar, use primary 'foreground' or 'muted-foreground' as needed */
+          /* e.g., text-foreground or text-muted-foreground */
+        },
+        /* Custom color for PRD secondaryText (e.g., for subheadings) */
+        /* PRD secondaryText (#606770) is mapped to --muted-foreground */
+        secondaryText: 'hsl(var(--muted-foreground))'
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
+        /* PRD default is 'rounded-md' (0.375rem). CSS var --radius is set to 0.375rem. */
+        /* This configuration means 'rounded-lg' will effectively be the PRD's default 'rounded-md'. */
+				lg: 'var(--radius)', 
+				md: 'calc(var(--radius) - 2px)', 
 				sm: 'calc(var(--radius) - 4px)'
 			},
+      fontFamily: {
+        /* PRD primaryFont: "Arial, sans-serif". CSS var --font-sans is set to this. */
+        sans: ['var(--font-sans)', 'Arial', 'sans-serif'],
+      },
+      boxShadow: {
+        /* PRD effects.shadows.default: "shadow-sm". Tailwind's 'shadow-sm' is '0 1px 2px 0 rgb(0 0 0 / 0.05)' */
+        DEFAULT: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)', // ensure 'shadow-sm' utility class value is explicit
+      },
 			keyframes: {
 				'accordion-down': {
 					from: {
